@@ -1,0 +1,7 @@
+yfinance
+yahoo_finance_api2
+pandas
+pandas_datareader
+datetime
+xlrd
+pyarrow
