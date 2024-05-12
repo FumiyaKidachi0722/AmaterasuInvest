@@ -23,3 +23,11 @@ cd backend
 pip install -r /root/AmaterasuInvest/data-processing/requirements.txt
 yarn start:dev
 ```
+
+# ssh
+
+```
+# SSHキーをssh-agentに追加:
+eval "$(ssh-agent -s)"
+ssh-add ~/.ssh/id_celestiphony_rsa
+```
