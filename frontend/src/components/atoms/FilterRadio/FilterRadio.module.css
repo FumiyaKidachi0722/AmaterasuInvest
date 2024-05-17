@@ -1,0 +1,33 @@
+/* src/components/atoms/FilterRadio/FilterRadio.module.css */
+
+.filterRadioContainer {
+  display: flex;
+  align-items: center;
+  margin-bottom: 10px;
+}
+
+.itemName {
+  margin-right: 10px;
+}
+
+.label {
+  margin-right: 10px;
+}
+
+.radio {
+  margin-right: 5px;
+}
+
+.clearButton {
+  background-color: #ff6666; /* 赤色背景 */
+  color: white; /* 白色テキスト */
+  border: none;
+  padding: 5px 10px;
+  cursor: pointer;
+  border-radius: 3px;
+  margin-left: 10px; /* 左余白 */
+}
+
+.clearButton:hover {
+  background-color: #ff4d4d; /* ホバー時の色 */
+}

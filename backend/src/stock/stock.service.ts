@@ -1,11 +1,11 @@
+// backend/src/stock/stock.service.ts
+
 import { Injectable } from '@nestjs/common';
 import { PythonShell } from 'python-shell';
 
 @Injectable()
 export class StockService {
   async filterStocks(query: any): Promise<any> {
-    console.log('query: ', query);
-
     // Pythonスクリプトのパスを指定
     const pythonScriptPath =
       '/root/AmaterasuInvest/data-processing/scripts/one_analysis.py';
@@ -21,23 +21,25 @@ export class StockService {
 
       console.log('Pythonスクリプトの実行結果:', results);
 
+      return results;
+
       // ここではダミーデータを返す
-      return [
-        {
-          name: 'Sample Company',
-          growthRate: '25%',
-          profitMargin: '15%',
-          yearsListed: '3',
-          ownerMajority: true,
-        },
-        {
-          name: 'Sample Company',
-          growthRate: '25%',
-          profitMargin: '15%',
-          yearsListed: '3',
-          ownerMajority: true,
-        },
-      ];
+      // return [
+      //   {
+      //     name: 'Sample Company',
+      //     growthRate: '25%',
+      //     profitMargin: '15%',
+      //     yearsListed: '3',
+      //     ownerMajority: true,
+      //   },
+      //   {
+      //     name: 'Sample Company',
+      //     growthRate: '25%',
+      //     profitMargin: '15%',
+      //     yearsListed: '3',
+      //     ownerMajority: true,
+      //   },
+      // ];
     } catch (error) {
       console.error('Pythonスクリプトの実行中にエラーが発生しました:', error);
 
@@ -47,8 +49,6 @@ export class StockService {
   }
 
   async filterAllStocks(query: any): Promise<any> {
-    console.log('query: ', query);
-
     // Pythonスクリプトのパスを指定
     const pythonScriptPath =
       '/root/AmaterasuInvest/data-processing/scripts/read_japan_stock_analysis.py';
@@ -62,8 +62,6 @@ export class StockService {
       // Pythonスクリプトを実行して結果を取得
       const results = await PythonShell.run(pythonScriptPath, options);
       const parsedResults = results.map((result) => JSON.parse(result));
-
-      console.log('Pythonスクリプトの実行結果:', parsedResults);
 
       return parsedResults;
     } catch (error) {

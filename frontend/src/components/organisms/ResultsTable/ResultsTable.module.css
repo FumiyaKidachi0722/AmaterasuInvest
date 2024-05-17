@@ -1,0 +1,22 @@
+/* src/components/organisms/ResultsTable/ResultsTable.module.css */
+.resultsTable {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 10px;
+}
+
+.header {
+  cursor: pointer;
+  background-color: #f1f1f1;
+  padding: 10px;
+  text-align: left;
+}
+
+.activeSort {
+  background-color: #d3d3d3;
+}
+
+.cell {
+  border: 1px solid #ddd;
+  padding: 8px;
+}

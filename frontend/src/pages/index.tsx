@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { SearchForm } from '@/components/SearchForm';
-import { ResultsTable } from '@/components/ResultsTable';
+import { ResultsTable } from '@/components/organisms/ResultsTable';
 import { SearchMethod } from '@/utils/constants';
 
 interface SearchParams {
@@ -58,7 +58,7 @@ const Home: React.FC = () => {
       },
     );
     const data = await response.json();
-    console.log('data: ', data);
+    if (!response.ok) return;
     setSearchResults(
       data[0].map((item: any) => ({
         name: item[0],

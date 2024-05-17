@@ -1,0 +1,18 @@
+/* src/components/atoms/FilterInput/FilterInput.module.css */
+.filterInputContainer {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  margin: 10px; /* 上下左右に10pxの空白を追加 */
+}
+
+.label {
+  font-weight: bold;
+  margin-right: 10px;
+}
+
+.input {
+  padding: 5px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}

@@ -10,7 +10,7 @@ export class StockController {
     return this.stockService.filterStocks(query);
   }
 
-  @Get('all')
+  @Get('All')
   async getAllStocks(@Query() query: any) {
     return this.stockService.filterAllStocks(query);
   }
