@@ -5,3 +5,5 @@ pandas_datareader
 datetime
 xlrd
 pyarrow
+beautifulsoup4
+requests

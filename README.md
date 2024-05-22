@@ -66,6 +66,10 @@ ssh-add ~/.ssh/id_celestiphony_rsa
    python scripts/download_csv.py
    ```
 
+   ```bash
+   python scripts/list_jpx_codes.py
+   ```
+
 1. データを正規化する
 
    ```bash

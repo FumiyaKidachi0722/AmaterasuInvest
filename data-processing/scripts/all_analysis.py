@@ -2,13 +2,14 @@ import pandas as pd
 import yfinance as yf
 from datetime import datetime
 
-# FutureWarningに対応するための設定
-pd.set_option('future.no_silent_downcasting', True)
-
 # ティッカーコードのリストをファイルから読み込む
 data_dir = '../data-processing/data'
 with open(f'{data_dir}/jpx_code_list.txt', 'r') as file:
     japan_tickers = [line.strip() for line in file]
+
+# ティッカーコードと日本語の企業名を含むCSVファイルを読み込む
+jpx_code_df = pd.read_csv(f'{data_dir}/jpx_code.csv')
+ticker_name_map = dict(zip(jpx_code_df['コード'].astype(str), jpx_code_df['銘柄名']))
 
 total_tickers = len(japan_tickers)
 processed_tickers = 0
@@ -23,7 +24,8 @@ analysis_results = []
 for ticker in japan_tickers:
     try:
         stock_data = yf.Ticker(f'{ticker}.T')  # JPXのティッカーコードに.Tを付ける
-        name = stock_data.info['longName']  # 企業名を取得
+        name = ticker_name_map.get(ticker, 'N/A')  # 事前に読み込んだ企業名を取得
+        print(f'企業名: {name}')
 
         # 過去4年間の財務諸表を取得
         if 'Total Revenue' in stock_data.financials.index:
@@ -52,7 +54,6 @@ for ticker in japan_tickers:
             is_within_five_years = (years_since_ipo <= 5)
 
             # 結果をリストに追加
-            # 解析結果をリストに追加する
             analysis_results.append({
                 '企業名': name,
                 'ティッカーシンボル': ticker,
@@ -61,7 +62,7 @@ for ticker in japan_tickers:
                 '最新営業利益率': operating_margin.iloc[0] if not operating_margin.empty else None,
                 '営業利益率10%超': is_operating_margin_over_10,
                 '上場日': ipo_date,
-                '上場5年以内:': is_within_five_years
+                '上場5年以内': is_within_five_years
             })
         else:
             print(f"No 'Total Revenue' data for {ticker}")
