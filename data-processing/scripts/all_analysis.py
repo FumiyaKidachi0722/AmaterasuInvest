@@ -27,24 +27,32 @@ for ticker in japan_tickers:
         name = ticker_name_map.get(ticker, 'N/A')  # 事前に読み込んだ企業名を取得
         print(f'企業名: {name}')
 
-        # 過去4年間の財務諸表を取得
+        # 過去5年間の財務諸表を取得
         if 'Total Revenue' in stock_data.financials.index:
             income_statement = stock_data.financials
 
-            # 売上成長率を計算
+            # 売上成長率を計算（各期間）
             revenue_growth = income_statement.loc['Total Revenue'].pct_change(fill_method=None).dropna().infer_objects(copy=False)
-            average_growth_rate = revenue_growth.mean()
-
-            # 売上成長率が20%以上かどうかをチェック
-            is_growth_over_20 = (average_growth_rate >= 0.20)
-
-            # 営業利益率を計算
+            growth_rates = {
+                '5年平均成長率': revenue_growth[-5:].mean() if len(revenue_growth) >= 5 else None,
+                '4年平均成長率': revenue_growth[-4:].mean() if len(revenue_growth) >= 4 else None,
+                '3年平均成長率': revenue_growth[-3:].mean() if len(revenue_growth) >= 3 else None,
+                '2年平均成長率': revenue_growth[-2:].mean() if len(revenue_growth) >= 2 else None,
+                '1年平均成長率': revenue_growth[-1:].mean() if len(revenue_growth) >= 1 else None,
+            }
+            
+            # 営業利益率を計算（各期間）
             operating_income = income_statement.loc['Operating Income']
             total_revenue = income_statement.loc['Total Revenue']
             operating_margin = (operating_income / total_revenue).dropna()
-
-            # 営業利益率が10%以上かをチェック
-            is_operating_margin_over_10 = (operating_margin.iloc[0] >= 0.10) if not operating_margin.empty else False
+            margin_rates = {
+                '最新営業利益率': operating_margin.iloc[0] if not operating_margin.empty else None,
+                '5年平均営業利益率': operating_margin[-5:].mean() if len(operating_margin) >= 5 else None,
+                '4年平均営業利益率': operating_margin[-4:].mean() if len(operating_margin) >= 4 else None,
+                '3年平均営業利益率': operating_margin[-3:].mean() if len(operating_margin) >= 3 else None,
+                '2年平均営業利益率': operating_margin[-2:].mean() if len(operating_margin) >= 2 else None,
+                '1年平均営業利益率': operating_margin[-1:].mean() if len(operating_margin) >= 1 else None,
+            }
 
             # 上場日の取得と上場からの年数を計算
             historical_data = stock_data.history(period="max")
@@ -54,16 +62,15 @@ for ticker in japan_tickers:
             is_within_five_years = (years_since_ipo <= 5)
 
             # 結果をリストに追加
-            analysis_results.append({
+            analysis_result = {
                 '企業名': name,
                 'ティッカーシンボル': ticker,
-                '平均成長率': average_growth_rate,
-                '成長率20%超': is_growth_over_20,
-                '最新営業利益率': operating_margin.iloc[0] if not operating_margin.empty else None,
-                '営業利益率10%超': is_operating_margin_over_10,
                 '上場日': ipo_date,
                 '上場5年以内': is_within_five_years
-            })
+            }
+            analysis_result.update(growth_rates)
+            analysis_result.update(margin_rates)
+            analysis_results.append(analysis_result)
         else:
             print(f"No 'Total Revenue' data for {ticker}")
 

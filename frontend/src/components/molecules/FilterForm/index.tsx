@@ -1,4 +1,4 @@
-// frontend/src/components/molecules/FilterForm/index.tsx
+// src/components/molecules/FilterForm/index.tsx
 
 import React from 'react';
 import { FilterInput } from '@/components/atoms/FilterInput';
@@ -9,12 +9,19 @@ interface FilterFormProps {
   filters: {
     name: string;
     ticker: string;
-    growthRate: string;
-    isGrowthOver20: boolean | null;
-    profitMargin: string;
-    isProfitOver10: boolean | null;
     listedDate: string;
     isWithinFiveYears: boolean | null;
+    growthRate5Years: string;
+    growthRate4Years: string;
+    growthRate3Years: string;
+    growthRate2Years: string;
+    growthRate1Year: string;
+    profitMarginLatest: string;
+    profitMargin5Years: string;
+    profitMargin4Years: string;
+    profitMargin3Years: string;
+    profitMargin2Years: string;
+    profitMargin1Year: string;
   };
   onFilterChange: (key: string, value: string | boolean | null) => void;
 }
@@ -46,32 +53,6 @@ export const FilterForm: React.FC<FilterFormProps> = ({
         placeholder="ティッカーシンボルで検索"
       />
       <FilterInput
-        itemName="成長率"
-        value={filters.growthRate}
-        onChange={handleInputChange('growthRate')}
-        placeholder="成長率で検索 (%以上)"
-      />
-      <FilterRadio
-        itemName="成長率20%以上"
-        name="isGrowthOver20"
-        value={filters.isGrowthOver20}
-        onChange={handleRadioChange('isGrowthOver20')}
-        onClear={() => handleRadioChange('isGrowthOver20')(null)}
-      />
-      <FilterInput
-        itemName="利益率"
-        value={filters.profitMargin}
-        onChange={handleInputChange('profitMargin')}
-        placeholder="利益率で検索 (%以上)"
-      />
-      <FilterRadio
-        itemName="利益率10%以上"
-        name="isProfitOver10"
-        value={filters.isProfitOver10}
-        onChange={handleRadioChange('isProfitOver10')}
-        onClear={() => handleRadioChange('isProfitOver10')(null)}
-      />
-      <FilterInput
         itemName="上場日"
         value={filters.listedDate}
         onChange={handleInputChange('listedDate')}
@@ -83,6 +64,72 @@ export const FilterForm: React.FC<FilterFormProps> = ({
         value={filters.isWithinFiveYears}
         onChange={handleRadioChange('isWithinFiveYears')}
         onClear={() => handleRadioChange('isWithinFiveYears')(null)}
+      />
+      <FilterInput
+        itemName="5年平均成長率"
+        value={filters.growthRate5Years}
+        onChange={handleInputChange('growthRate5Years')}
+        placeholder="5年平均成長率 (%以上)"
+      />
+      <FilterInput
+        itemName="4年平均成長率"
+        value={filters.growthRate4Years}
+        onChange={handleInputChange('growthRate4Years')}
+        placeholder="4年平均成長率 (%以上)"
+      />
+      <FilterInput
+        itemName="3年平均成長率"
+        value={filters.growthRate3Years}
+        onChange={handleInputChange('growthRate3Years')}
+        placeholder="3年平均成長率 (%以上)"
+      />
+      <FilterInput
+        itemName="2年平均成長率"
+        value={filters.growthRate2Years}
+        onChange={handleInputChange('growthRate2Years')}
+        placeholder="2年平均成長率 (%以上)"
+      />
+      <FilterInput
+        itemName="1年平均成長率"
+        value={filters.growthRate1Year}
+        onChange={handleInputChange('growthRate1Year')}
+        placeholder="1年平均成長率 (%以上)"
+      />
+      <FilterInput
+        itemName="最新営業利益率"
+        value={filters.profitMarginLatest}
+        onChange={handleInputChange('profitMarginLatest')}
+        placeholder="最新営業利益率 (%以上)"
+      />
+      <FilterInput
+        itemName="5年平均営業利益率"
+        value={filters.profitMargin5Years}
+        onChange={handleInputChange('profitMargin5Years')}
+        placeholder="5年平均営業利益率 (%以上)"
+      />
+      <FilterInput
+        itemName="4年平均営業利益率"
+        value={filters.profitMargin4Years}
+        onChange={handleInputChange('profitMargin4Years')}
+        placeholder="4年平均営業利益率 (%以上)"
+      />
+      <FilterInput
+        itemName="3年平均営業利益率"
+        value={filters.profitMargin3Years}
+        onChange={handleInputChange('profitMargin3Years')}
+        placeholder="3年平均営業利益率 (%以上)"
+      />
+      <FilterInput
+        itemName="2年平均営業利益率"
+        value={filters.profitMargin2Years}
+        onChange={handleInputChange('profitMargin2Years')}
+        placeholder="2年平均営業利益率 (%以上)"
+      />
+      <FilterInput
+        itemName="1年平均営業利益率"
+        value={filters.profitMargin1Year}
+        onChange={handleInputChange('profitMargin1Year')}
+        placeholder="1年平均営業利益率 (%以上)"
       />
     </div>
   );

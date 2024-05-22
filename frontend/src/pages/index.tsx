@@ -14,12 +14,19 @@ interface SearchParams {
 interface SearchResult {
   name: string;
   ticker: string;
-  growthRate: number;
-  isGrowthOver20: boolean;
-  profitMargin: number;
-  isProfitOver10: boolean;
   listedDate: string;
   isWithinFiveYears: boolean;
+  growthRate5Years: number | null;
+  growthRate4Years: number | null;
+  growthRate3Years: number | null;
+  growthRate2Years: number | null;
+  growthRate1Year: number | null;
+  profitMarginLatest: number | null;
+  profitMargin5Years: number | null;
+  profitMargin4Years: number | null;
+  profitMargin3Years: number | null;
+  profitMargin2Years: number | null;
+  profitMargin1Year: number | null;
 }
 
 const Home: React.FC = () => {
@@ -59,16 +66,24 @@ const Home: React.FC = () => {
     );
     const data = await response.json();
     if (!response.ok) return;
+    console.log('data: ', data);
     setSearchResults(
       data[0].map((item: any) => ({
         name: item[0],
         ticker: item[1],
-        growthRate: item[2],
-        isGrowthOver20: item[3],
-        profitMargin: item[4],
-        isProfitOver10: item[5],
-        listedDate: item[6],
-        isWithinFiveYears: item[7],
+        listedDate: item[2],
+        isWithinFiveYears: item[3],
+        growthRate5Years: item[4],
+        growthRate4Years: item[5],
+        growthRate3Years: item[6],
+        growthRate2Years: item[7],
+        growthRate1Year: item[8],
+        profitMarginLatest: item[9],
+        profitMargin5Years: item[10],
+        profitMargin4Years: item[11],
+        profitMargin3Years: item[12],
+        profitMargin2Years: item[13],
+        profitMargin1Year: item[14],
       })),
     );
   };
